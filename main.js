@@ -1,4 +1,3 @@
-
 'use strict'
 
 function createHtml(html) {
@@ -23,13 +22,14 @@ function main() {
   }
 
   function buildTitleScreen() {
-    titleScreenElement = createHtml(`<div class="main-screen">
-    <p class="zulrah-title">ZULRAH SIMULATOR</p>
-    <div class="buttons">
-    <button class="read-instructions-btn">Read Instructions</button>
-     <button class="start-game-btn">Start Game</button>
-     </div>         
-    </div>`);
+    titleScreenElement = createHtml(`
+      <div class="main-screen">
+        <p class="zulrah-title">ZULRAH SIMULATOR</p>
+        <div class="buttons">
+          <button class="read-instructions-btn">Read Instructions</button>
+          <button class="start-game-btn">Start Game</button>
+        </div>         
+      </div>`);
     mainContentElement[0].appendChild(titleScreenElement);
     startButtonElement = titleScreenElement.querySelector('.start-game-btn');
     startButtonElement.addEventListener('click', handleStartClick);
@@ -50,33 +50,37 @@ function main() {
     buildGameOverScreen();
   }
 
+  function destroyGameScreen() {
+    gameScreenElement.remove();
+    // startButtonElement.removeEventListener('click', handleStartClick); @todo remove event listener for key down
+  }
 
 
-    var gameScreenElement;
+  var gameScreenElement;
 
-    function buildGameScreen() {
+  function buildGameScreen() {
     gameScreenElement = createHtml(`
-    <div class="game-screen">
-    <canvas id="canvas")></canvas>        
-    </div>`);
+      <div class="game-screen">
+        <canvas id="canvas"></canvas>        
+      </div>`);
     mainContentElement[0].appendChild(gameScreenElement);
 
     var canvas = document.getElementById("canvas");
-/*
-    var canvasWidth = window.innerWidth;
-    var canvasHeight = window.innerHeight;
-*/
+
     game = new Game(canvas);
 
-    document.addEventListener("keydown", function(event){
-       game.player.update(event);
+    document.addEventListener("keydown", function (event) {// @todo add event listener into a named function
+      game.player.handleKeyDown(event);
     });
+
+    window.setTimeout(gameEnded, 2000);
   }
 
+  /*
   function destroyGameScreen() {
     game.destroy();
   }
-
+  */
 
   // -- GAME OVER SCREEN
 
@@ -89,13 +93,14 @@ function main() {
   }
 
   function buildGameOverScreen() {
-    gameOverScreenElement = createHtml(`<div class="main-screen">
-    <p class="zulrah-title">ZULRAH SIMULATOR</p>
-    <p class="death">Oh no! Zulrah has destroyed you!</p>
-    <div class="buttons">
-    <button class="restart-game-btn">Restart Game</button>
-     </div>         
-     </div>`);
+    gameOverScreenElement = createHtml(`
+      <div class="main-screen">
+        <p class="zulrah-title">ZULRAH SIMULATOR</p>
+        <p class="death">Oh no! Zulrah has destroyed you!</p>
+        <div class="buttons">
+          <button class="restart-game-btn">Restart Game</button>
+        </div>         
+      </div>`);
     mainContentElement[0].appendChild(gameOverScreenElement);
     restartGameButtonElement = gameOverScreenElement.querySelector('button');
     restartGameButtonElement.addEventListener('click', handleRestartClick);
@@ -112,8 +117,3 @@ function main() {
 }
 
 window.addEventListener('load', main);
-
-
-
-
-
