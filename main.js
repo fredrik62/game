@@ -9,8 +9,9 @@ function createHtml(html) {
 
 function main() {
   var game;
-  var mainContentElement = document.getElementsByClassName('main-content');
+  var mainContentElement = document.querySelector('.main-content');
 
+  
   // -- TITLE SCREEN
 
   var titleScreenElement;
@@ -24,13 +25,13 @@ function main() {
   function buildTitleScreen() {
     titleScreenElement = createHtml(`
       <div class="main-screen">
-        <p class="zulrah-title">ZULRAH SIMULATOR</p>
+        <p class="zulrah-title">Beer Meets Taco</p>
         <div class="buttons">
           <button class="read-instructions-btn">Read Instructions</button>
           <button class="start-game-btn">Start Game</button>
         </div>         
       </div>`);
-    mainContentElement[0].appendChild(titleScreenElement);
+    mainContentElement.appendChild(titleScreenElement);
     startButtonElement = titleScreenElement.querySelector('.start-game-btn');
     startButtonElement.addEventListener('click', handleStartClick);
   }
@@ -41,39 +42,39 @@ function main() {
   }
 
 
+  
   // -- GAME SCREEN
 
   var game;
+  var gameScreenElement;
 
   function gameEnded() {
+    console.log(game.score);
     destroyGameScreen();
     buildGameOverScreen();
   }
 
-  function destroyGameScreen() {
-    gameScreenElement.remove();
-    // startButtonElement.removeEventListener('click', handleStartClick); @todo remove event listener for key down
-  }
-
-
-  var gameScreenElement;
-
   function buildGameScreen() {
     gameScreenElement = createHtml(`
       <div class="game-screen">
-        <canvas id="canvas"></canvas>        
+        <img id="beer" src="https://vignette.wikia.nocookie.net/2007scape/images/5/5e/Asgarnian_ale_detail.png/revision/latest?cb=20130409194357">
+        <canvas id="canvas">
+        </canvas>        
       </div>`);
-    mainContentElement[0].appendChild(gameScreenElement);
-
+    mainContentElement.appendChild(gameScreenElement); // https://www.drinkstuff.com/productimg/55708.jpg
     var canvas = document.getElementById("canvas");
 
     game = new Game(canvas);
-
     document.addEventListener("keydown", function (event) {// @todo add event listener into a named function
       game.player.handleKeyDown(event);
     });
 
-    window.setTimeout(gameEnded, 2000);
+   window.setTimeout(gameEnded, 10000);
+  }
+
+  function destroyGameScreen() {
+    gameScreenElement.remove();
+    game.destroy();
   }
 
   /*
@@ -82,6 +83,7 @@ function main() {
   }
   */
 
+  
   // -- GAME OVER SCREEN
 
   var gameOverScreenElement;
@@ -95,22 +97,25 @@ function main() {
   function buildGameOverScreen() {
     gameOverScreenElement = createHtml(`
       <div class="main-screen">
-        <p class="zulrah-title">ZULRAH SIMULATOR</p>
-        <p class="death">Oh no! Zulrah has destroyed you!</p>
+        <p class="zulrah-title">Thank you for Playing!</p>
+        <p class="death"></p> 
         <div class="buttons">
-          <button class="restart-game-btn">Restart Game</button>
+          <button class="start-game-btn">Back to Main Menu</button>
         </div>         
       </div>`);
-    mainContentElement[0].appendChild(gameOverScreenElement);
-    restartGameButtonElement = gameOverScreenElement.querySelector('button');
-    restartGameButtonElement.addEventListener('click', handleRestartClick);
+
+    mainContentElement.appendChild(gameOverScreenElement);
+    gameOverScreenElement.querySelector(".death").innerHTML = "you have " + game.score;
+    restartGameButtonElement = gameOverScreenElement.querySelector('.start-game-btn');
+    restartGameButtonElement.addEventListener('click', destroyGameOverScreen);
   }
 
   function destroyGameOverScreen() {
     gameOverScreenElement.remove();
-    restartGameButtonElement.removeEventListener('click', handleRestartClick);
+    buildGameScreen();
   }
 
+  
   // -- start the app
 
   buildTitleScreen();

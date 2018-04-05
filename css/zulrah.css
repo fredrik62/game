@@ -38,6 +38,7 @@ body {
 .zulrah-title {
   font-family: 'Permanent Marker', cursive;
   padding-top: 10vh;
+  color: #B43104;
 }
 
 .buttons {
@@ -108,14 +109,33 @@ body {
 } 
 
 canvas {
-  background-image: url("https://i.imgur.com/mUQE18w.jpg");
+ background-color: gold;
   background-repeat: no-repeat;
-  background-size: 1216px;
+  background-size: cover;
+  /* background-size: 1216px; */
+  
+  
 }
 
 .game-screen {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 2%;
+  justify-content: center;
+  align-content: center;
+  border: 1px solid green;
+  height: 100vh;
+  background-image: url("https://previews.123rf.com/images/maryvalery/maryvalery1604/maryvalery160400016/55364035-pizza-seamless-pattern-delicious-slice-of-pizza-background-traditional-italian-food-ornament-texture.jpg");
+  
+  
 }
+
+#beer {
+  height: 80px;
+  display: none;
+}
+
+
+#points {
+  text-align: center;
+
+}
+

@@ -3,13 +3,21 @@
 function Player (ctx) {
   var self = this;
 
-  self.x = 800;
-  self.y = 600;
-  self.size = 100;
+  self.x = 0;
+  self.y = 0;
+  self.size = 50;
 
   self.speed = SPEED;
 
   self.ctx = ctx;
+
+  self.width = 1000;
+	self.height = self.width / 1.77;
+
+	self.ctx.canvas.width = self.width;
+  self.ctx.canvas.height = self.height;
+  
+  self.img = document.getElementById("beer");
 }
 
 
@@ -29,7 +37,7 @@ Player.prototype.moveDown = function() {
 
 Player.prototype.moveRight = function() {
   var self = this;
-  if (self.x + 1 <= 1500) {
+  if (self.x + 1 <= 1 <= 1500) {
     self.x += self.speed;
   }
 };
@@ -65,10 +73,8 @@ Player.prototype.handleKeyDown = function(event) {
 Player.prototype.draw = function() {
   var self = this;
 
-  self.ctx.fillStyle = 'blue';
-  self.ctx.fillRect(self.x, self.y, self.size, self.size);
-
-  // self.ctx.beginPath();
-  // self.ctx.arc(self.x, self.y, 30, 0,2 * Math.PI, false);
-  // self.ctx.stroke();
+  self.ctx.drawImage(self.img, self.x, self.y, self.size, self.size);
 };
+
+
+

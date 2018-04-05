@@ -1,13 +1,14 @@
 'use strict';
 
-function Obstacle(x, y, ctx) {
+function Obstacle(ctx, width, height) {
   var self = this;
 
   self.ctx = ctx;
-  self.y = Math.random () * 500;
-  self.x = Math.random() * 880;
   self.size = 50;
+  self.y = Math.random () * height - self.size;
+  self.x = Math.random() * width - self.size;
   self.beerSpeed = 12;
+  self.img = document.getElementById("beer");
 }
 
 Obstacle.prototype.draw = function () {
@@ -16,10 +17,9 @@ Obstacle.prototype.draw = function () {
  /* self.ctx.fillStyle = 'blue';
   self.ctx.fillRect(self.x, self.y, self.size, self.size);
   */
- var img = document.getElementById("beer");
 
- self.ctx.drawImage(img, self.x, self.y, self.size, self.size);
- self.x++;
+ self.ctx.drawImage(self.img, self.x, self.y, self.size, self.size);
+ //self.x++;
  
 }
 

@@ -1,6 +1,6 @@
 'use strict';
 
-var SPEED = 4;
+var SPEED = 12;
 
 function Game(canvas){
 	var self = this;
@@ -15,45 +15,73 @@ function Game(canvas){
 	self.ctx.canvas.height = self.height;
 	
 	self.player = new Player(self.ctx);
-
-	//upper right corner safe position
-	self.safePosition = new SafePosition(970,220, self.ctx);
-   
+	self.obstacle = new Obstacle(self.ctx, self.width, self.height);
+	self.score = 0;
+	self.gameOver = false;
+	
 	self.frame();
-}
-Game.prototype.update = function() {
+};
+
+Game.prototype.drawPoints = function() {
 	var self = this;
 
+		self.ctx.font = "30px Arial";
+		self.ctx.textAlign="center"; 
+	  self.ctx.fillText("You have " + self.score + " points" ,500,30);	
 };
 
 Game.prototype.check = function () {
   var self = this;
 
-  if(self.player.y > self.safePosition.y && self.player.y < self.safePosition.y + self.safePosition.size) {
-		console.log("yolo");
-  } 
+	if (self.obstacle.x < self.player.x && self.player.x < self.obstacle.x + self.obstacle.size) {
+		if (self.obstacle.y < self.player.y && self.player.y < self.obstacle.y + self.obstacle.size){
+			console.log("collision left top");
+			self.score++;
+		}
+		if (self.obstacle.y < self.player.y + self.player.size && self.player.y + self.player.size < self.obstacle.y + self.obstacle.size){
+			console.log("collision left down");
+			self.score++;
+		}
+	}
+
+	if (self.obstacle.x < self.player.x + self.player.size && self.player.x + self.player.size < self.obstacle.x + self.obstacle.size) {
+		if (self.obstacle.y < self.player.y && self.player.y < self.obstacle.y + self.obstacle.size){
+			console.log("collision right top");
+			self.score++;
+		}
+		if (self.obstacle.y < self.player.y + self.player.size && self.player.y + self.player.size < self.obstacle.y + self.obstacle.size){
+			console.log("collision right down");
+			self.score++;		
+		}
+	}
 };
 
 Game.prototype.draw = function() {
 	var self = this;
-
-	//self.player.draw();
-
-	// self.safePosition.draw();
+	
+	self.player.draw();
+  
+	self.obstacle.draw();
 };
 
 
 Game.prototype.frame = function() {
 	var self = this;
 
-	// self.ctx.clearRect(0, 0, self.width, self.height);
+	self.ctx.clearRect(0, 0, self.width, self.height);
 
-	//self.update();
-	self.player.draw();
+	self.drawPoints();
 	self.check();
 	self.draw(); 
 
-	window.requestAnimationFrame(function () {
-		self.frame();		
-	});
+	if (!self.gameOver) {
+		window.requestAnimationFrame(function () {
+			self.frame();		
+		});
+	}
+};
+
+Game.prototype.destroy = function() {
+	var self = this;
+	self.gameOver = true;
 };
