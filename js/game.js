@@ -18,6 +18,7 @@ function Game(canvas){
 	self.obstacle = new Obstacle(self.ctx, self.width, self.height);
 	self.score = 0;
 	self.gameOver = false;
+	self.img = document.getElementById("beer");
 	
 	self.frame();
 };
@@ -37,10 +38,12 @@ Game.prototype.check = function () {
 		if (self.obstacle.y < self.player.y && self.player.y < self.obstacle.y + self.obstacle.size){
 			console.log("collision left top");
 			self.score++;
+			
 		}
 		if (self.obstacle.y < self.player.y + self.player.size && self.player.y + self.player.size < self.obstacle.y + self.obstacle.size){
 			console.log("collision left down");
 			self.score++;
+			
 		}
 	}
 
@@ -48,10 +51,12 @@ Game.prototype.check = function () {
 		if (self.obstacle.y < self.player.y && self.player.y < self.obstacle.y + self.obstacle.size){
 			console.log("collision right top");
 			self.score++;
+			
 		}
 		if (self.obstacle.y < self.player.y + self.player.size && self.player.y + self.player.size < self.obstacle.y + self.obstacle.size){
 			console.log("collision right down");
-			self.score++;		
+			self.score++;
+			
 		}
 	}
 };

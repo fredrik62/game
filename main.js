@@ -52,7 +52,16 @@ function main() {
     console.log(game.score);
     destroyGameScreen();
     buildGameOverScreen();
+    movementListener();
+    
   }
+  function movementListener() {
+
+    document.addEventListener("keydown", function (event) {// @todo add event listener into a named function
+      game.player.handleKeyDown(event); 
+    });   
+  }
+
 
   function buildGameScreen() {
     gameScreenElement = createHtml(`
@@ -65,9 +74,7 @@ function main() {
     var canvas = document.getElementById("canvas");
 
     game = new Game(canvas);
-    document.addEventListener("keydown", function (event) {// @todo add event listener into a named function
-      game.player.handleKeyDown(event);
-    });
+    movementListener();
 
    window.setTimeout(gameEnded, 10000);
   }
@@ -105,7 +112,7 @@ function main() {
       </div>`);
 
     mainContentElement.appendChild(gameOverScreenElement);
-    gameOverScreenElement.querySelector(".death").innerHTML = "you have " + game.score;
+    gameOverScreenElement.querySelector(".death").innerHTML = "you have " + game.score + " points";
     restartGameButtonElement = gameOverScreenElement.querySelector('.start-game-btn');
     restartGameButtonElement.addEventListener('click', destroyGameOverScreen);
   }
