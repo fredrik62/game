@@ -25,10 +25,12 @@ function main() {
   function buildTitleScreen() {
     titleScreenElement = createHtml(`
       <div class="main-screen">
-        <p class="zulrah-title">Beer Meets Taco</p>
+        <p class="zulrah-title">Keep Zulrah Wasted</p>
         <div class="buttons">
           <button class="read-instructions-btn">Read Instructions</button>
           <button class="start-game-btn">Start Game</button>
+            <embed src="/home/fredrik/Downloads/lumbridge.mp3" width="180" height="90" loop="true" autostart="false" hidden="true" />
+
         </div>         
       </div>`);
     mainContentElement.appendChild(titleScreenElement);
@@ -42,14 +44,13 @@ function main() {
   }
 
 
-  
+
   // -- GAME SCREEN
 
   var game;
   var gameScreenElement;
 
   function gameEnded() {
-    console.log(game.score);
     destroyGameScreen();
     buildGameOverScreen();
     movementListener();
@@ -57,7 +58,7 @@ function main() {
   }
   function movementListener() {
 
-    document.addEventListener("keydown", function (event) {// @todo add event listener into a named function
+    document.addEventListener("keydown", function (event) {
       game.player.handleKeyDown(event); 
     });   
   }
@@ -67,16 +68,23 @@ function main() {
     gameScreenElement = createHtml(`
       <div class="game-screen">
         <img id="beer" src="https://vignette.wikia.nocookie.net/2007scape/images/5/5e/Asgarnian_ale_detail.png/revision/latest?cb=20130409194357">
+        <img id="zulrah-icon" src="https://i.imgur.com/b27Sk5d.png">
+
         <canvas id="canvas">
-        </canvas>        
+        </canvas> 
+        
+        <embed src="/home/fredrik/Downloads/swamp.mp3" width="180" height="90" loop="true" autostart="false" hidden="true" />
+
       </div>`);
-    mainContentElement.appendChild(gameScreenElement); // https://www.drinkstuff.com/productimg/55708.jpg
+    mainContentElement.appendChild(gameScreenElement); // https://i.imgur.com/b27Sk5d.png
     var canvas = document.getElementById("canvas");
 
     game = new Game(canvas);
     movementListener();
+    game.onEnded(gameEnded);
+    game.zulrahLife();
 
-   window.setTimeout(gameEnded, 10000);
+   //window.setTimeout(gameEnded, 10000);
   }
 
   function destroyGameScreen() {
@@ -107,13 +115,14 @@ function main() {
         <p class="zulrah-title">Thank you for Playing!</p>
         <p class="death"></p> 
         <div class="buttons">
-          <button class="start-game-btn">Back to Main Menu</button>
+          <button class="start-game-btn">Play again</button>
         </div>         
       </div>`);
 
     mainContentElement.appendChild(gameOverScreenElement);
     gameOverScreenElement.querySelector(".death").innerHTML = "you have " + game.score + " points";
     restartGameButtonElement = gameOverScreenElement.querySelector('.start-game-btn');
+    debugger;
     restartGameButtonElement.addEventListener('click', destroyGameOverScreen);
   }
 

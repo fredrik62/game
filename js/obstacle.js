@@ -23,11 +23,4 @@ Obstacle.prototype.draw = function () {
  
 }
 
-/*
-Obstacle.prototype.info = function() {
-  var self = this;
-  self.ctx.font = "30px Arial";
-  self.ctx.fillText("Hello World",10,50);
 
-}
-*/

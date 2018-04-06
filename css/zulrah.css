@@ -44,7 +44,8 @@ body {
 .buttons {
   display: flex;
   justify-content: space-around;
-  width: 50%;
+  align-items: center;
+  width: 20%;
   margin: 0 auto;
   color: white;
 }
@@ -70,27 +71,7 @@ body {
 }
   
 .death {
-  color:silver;
-  text-shadow:
-  4px 4px 1px #300000,
-  4px 6px 1px #400000,
-  4px 8px 1px #500000,
-  4px 10px 1px #600000,
-  4px 12px 1px #700000,
-  4px 14px 1px #800000,
-  4px 16px 1px #900000,
-  4px 18px 1px #A00000,
-  4px 20px 1px #B00000,
-  4px 22px 1px #C00000,
-  4px 24px 1px #D00000,
-  4px 26px 1px #E00000,
-  4px 28px 1px #F00000,
-  4px 30px 1px #FA0000,
-  4px 32px 1px #FB0000,
-  4px 34px 1px #FC0000,
-  4px 36px 1px #FD0000,
-  4px 38px 1px #FE0000,
-  4px 40px 2px #FF0000;
+  color: #ffffff; font-family: 'Raleway',sans-serif; font-size: 62px; font-weight: 800; line-height: 72px; margin: 0 0 24px; text-align: center; text-transform: uppercase; 
 }
 
 
@@ -109,7 +90,7 @@ body {
 } 
 
 canvas {
- background-color: gold;
+  
   background-repeat: no-repeat;
   background-size: cover;
   /* background-size: 1216px; */
@@ -121,9 +102,10 @@ canvas {
   display: flex;
   justify-content: center;
   align-content: center;
-  border: 1px solid green;
+
   height: 100vh;
-  background-image: url("https://previews.123rf.com/images/maryvalery/maryvalery1604/maryvalery160400016/55364035-pizza-seamless-pattern-delicious-slice-of-pizza-background-traditional-italian-food-ornament-texture.jpg");
+  background-image: url("https://i.pinimg.com/originals/75/90/18/759018a87cf46c3646564b7f604cb58c.jpg");
+  background-size: cover;
   
   
 }
@@ -139,3 +121,8 @@ canvas {
 
 }
 
+#zulrah-icon {
+  height: 80px;
+  display: none;
+  
+}

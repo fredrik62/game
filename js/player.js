@@ -5,7 +5,7 @@ function Player (ctx) {
 
   self.x = 0;
   self.y = 0;
-  self.size = 50;
+  self.size = 55;
 
   self.speed = SPEED;
 
@@ -17,7 +17,7 @@ function Player (ctx) {
 	self.ctx.canvas.width = self.width;
   self.ctx.canvas.height = self.height;
   
-  self.img = document.getElementById("beer");
+  self.img = document.getElementById("zulrah-icon");
 }
 
 
@@ -72,8 +72,8 @@ Player.prototype.handleKeyDown = function(event) {
 
 Player.prototype.draw = function() {
   var self = this;
-
-  self.ctx.drawImage(self.img, self.x, self.y, self.size, self.size);
+  
+  self.ctx.drawImage(self.img, self.x, self.y, self.size, self.size );
 };
 
 
